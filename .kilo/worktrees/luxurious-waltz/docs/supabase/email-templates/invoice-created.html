@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Invoice from e-vetdoc</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f4f7f6;
+      color: #333333;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrapper {
+      width: 100%;
+      background-color: #f4f7f6;
+      padding: 30px 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px border #e2e8f0;
+    }
+    .header {
+      background-color: #0f766e; /* Teal-700 */
+      padding: 24px;
+      text-align: center;
+    }
+    .header h1 {
+      color: #ffffff;
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .content {
+      padding: 30px;
+    }
+    .welcome {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .invoice-card {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .invoice-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .invoice-number {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f766e;
+      margin-bottom: 16px;
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    }
+    .details-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .details-table th, .details-table td {
+      padding: 8px 0;
+      text-align: left;
+      vertical-align: top;
+    }
+    .details-table th {
+      color: #64748b;
+      font-weight: 500;
+      width: 120px;
+    }
+    .details-table td {
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    .items-table th {
+      border-bottom: 2px solid #e2e8f0;
+      padding: 10px 0;
+      text-align: left;
+      color: #64748b;
+      font-weight: 600;
+    }
+    .items-table td {
+      border-bottom: 1px solid #e2e8f0;
+      padding: 12px 0;
+      color: #334155;
+    }
+    .items-table th.price, .items-table td.price {
+      text-align: right;
+    }
+    .totals-table {
+      width: 250px;
+      margin-left: auto;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .totals-table td {
+      padding: 6px 0;
+      text-align: left;
+    }
+    .totals-table td.amount {
+      text-align: right;
+      font-weight: 600;
+    }
+    .totals-table tr.grand-total td {
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f766e;
+    }
+    .btn-container {
+      text-align: center;
+      margin: 30px 0 10px 0;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #0f766e;
+      color: #ffffff !important;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: #64748b;
+      border-top: 1px solid #e2e8f0;
+      background-color: #f8fafc;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="header">
+        <h1>e-vetdoc Clinic</h1>
+      </div>
+      <div class="content">
+        <p class="welcome">Hello <strong>{{ownerName}}</strong>,</p>
+        <p>A new invoice has been generated for your pet's recent visit. Below is a summary of the details:</p>
+        
+        <div class="invoice-card">
+          <div class="invoice-title">Invoice Issued</div>
+          <div class="invoice-number">{{invoiceNumber}}</div>
+          
+          <table class="details-table">
+            <tr>
+              <th>Date Issued:</th>
+              <td>{{issueDate}}</td>
+            </tr>
+            <tr>
+              <th>Due Date:</th>
+              <td>{{dueDate}}</td>
+            </tr>
+            <tr>
+              <th>Pet:</th>
+              <td>{{petName}}</td>
+            </tr>
+          </table>
+        </div>
+
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th class="price">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#items}}
+            <tr>
+              <td>{{description}} x {{quantity}}</td>
+              <td class="price">{{unitPrice}}</td>
+            </tr>
+            {{/items}}
+          </tbody>
+        </table>
+
+        <table class="totals-table">
+          <tr>
+            <td>VATable Sales</td>
+            <td class="amount">{{vatableSales}}</td>
+          </tr>
+          <tr>
+            <td>VAT (12%)</td>
+            <td class="amount">{{vatAmount}}</td>
+          </tr>
+          <tr class="grand-total">
+            <td>Total Due</td>
+            <td class="amount">{{totalAmount}}</td>
+          </tr>
+        </table>
+
+        <div class="btn-container">
+          <a href="{{invoiceUrl}}" class="btn" target="_blank">View Details Online</a>
+        </div>
+      </div>
+      <div class="footer">
+        <p>Thank you for trusting e-vetdoc with your pet's healthcare.</p>
+        <p>© 2026 e-vetdoc Clinic. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
