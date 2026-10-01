@@ -42,7 +42,7 @@
     "lucide-react": "^1.21.0",
     "marked": "^18.0.5",
     "next": "16.2.9",
-    "nodemailer": "^9.0.6",
+    "nodemailer": "^10.0.11",
     "postgres": "^3.4.9",
     "react": "19.2.7",
     "react-clock": "^6.0.0",
